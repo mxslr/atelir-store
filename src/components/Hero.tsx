@@ -214,7 +214,6 @@ export default function Hero() {
             gap: 6,
             color: 'var(--ink-soft)',
             fontSize: '0.7rem',
-            letterSpacing: '0.3em',
             textTransform: 'uppercase',
             opacity: sceneOneOpacity,
             animation: 'rise 1s ease both',
@@ -222,10 +221,10 @@ export default function Hero() {
             zIndex: 8
           }}
         >
-          {/* text-indent mengimbangi trailing letter-spacing 0.3em supaya
-              glyph benar-benar center terhadap chevron di bawahnya (terlihat
-              meleset ke kiri di mobile tanpa ini). */}
-          <span style={{ textIndent: '0.3em' }}>Scroll</span>
+          {/* letter-spacing hanya pada teks (bukan container) supaya chevron di
+              bawah tidak ikut tergeser oleh trailing space. text-indent 0.3em
+              mengimbangi trailing letter-spacing agar kata benar-benar center. */}
+          <span style={{ letterSpacing: '0.3em', textIndent: '0.3em' }}>Scroll</span>
           <span className="bob" style={{ display: 'inline-flex' }}>
             <IconChevronDown size={20} />
           </span>
