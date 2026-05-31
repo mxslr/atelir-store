@@ -1,0 +1,529 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+   THEME VARIABLES
+   Palet "Cream Ink Rust". Light = krim hangat dengan tinta dalam dan aksen
+   karat. Dark = batu-bara hangat dengan krim dan aksen yang sama.
+   ========================================================================= */
+:root,
+[data-theme='light'] {
+  --bg: #f4efe6;
+  --bg-soft: #ece5d6;
+  --bg-card: #ffffff;
+  --ink: #14110d;
+  --ink-soft: #3a342b;
+  --ink-mute: #6b6357;
+  --line: #d9cfbb;
+  --line-soft: #e6dfce;
+  --accent: #c0431c;
+  --accent-deep: #8d2e10;
+  --accent-soft: #f1c4a8;
+  --green: #2f4a36;
+  --green-soft: #cad9c9;
+  --shadow: 24px 24px 60px -28px rgba(20, 17, 13, 0.18);
+  --noise-op: 0.05;
+}
+
+[data-theme='dark'] {
+  --bg: #100d0a;
+  --bg-soft: #1a1612;
+  --bg-card: #1f1a14;
+  --ink: #f4efe6;
+  --ink-soft: #d6cdb8;
+  --ink-mute: #8c8270;
+  --line: #2b251c;
+  --line-soft: #1f1a14;
+  --accent: #e26536;
+  --accent-deep: #b4451c;
+  --accent-soft: #45261a;
+  --green: #9bb5a1;
+  --green-soft: #1d2c22;
+  --shadow: 24px 24px 80px -28px rgba(0, 0, 0, 0.6);
+  --noise-op: 0.08;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-feature-settings: 'ss01', 'cv11';
+  margin: 0;
+  padding: 0;
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* PENTING: pakai overflow-x: clip, bukan hidden.
+   overflow-x: hidden pada body membuat body menjadi scroll container baru
+   yang mematikan position: sticky pada seluruh descendant (termasuk
+   ringkasan konfigurator). overflow-x: clip mencegah scroll horizontal
+   tanpa membuat scroll container. */
+html,
+body {
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.font-display {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-feature-settings: 'ss01';
+  letter-spacing: -0.02em;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* =========================================================================
+   NOISE LAYER. Tekstur kertas halus, digabung dengan background.
+   ========================================================================= */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--noise-op);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+}
+
+[data-theme='dark'] .noise-overlay {
+  mix-blend-mode: screen;
+}
+
+/* =========================================================================
+   KEYFRAMES
+   ========================================================================= */
+@keyframes bobUp {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.96);
+    opacity: 0.6;
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bob {
+  animation: bobUp 2.6s ease-in-out infinite;
+}
+
+.spin-slow {
+  animation: spinSlow 24s linear infinite;
+}
+
+.rise-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.rise-in.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================================
+   COMPONENT ATOMS
+   ========================================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.93rem;
+  letter-spacing: 0.01em;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn-primary:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-accent:hover {
+  background: var(--accent-deep);
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: var(--ink);
+}
+
+/* Field input common */
+.field-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  color: var(--ink);
+}
+.field-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Toggle switch */
+.tg {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: background 0.25s ease;
+  flex-shrink: 0;
+}
+.tg::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.tg.on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.tg.on::after {
+  transform: translateX(20px);
+  background: #fff;
+}
+
+/* Step counter */
+.step-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.step-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* Tab pill row */
+.tab-pill {
+  padding: 0.55rem 1.05rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.tab-pill.active {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+/* Underline link */
+.link-u {
+  position: relative;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+.link-u::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s ease;
+}
+.link-u:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Floating navbar surface */
+.glass {
+  background: color-mix(in oklab, var(--bg) 80%, transparent);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  border: 1px solid var(--line);
+}
+
+/* =========================================================================
+   PARALLAX SCENE LAYER
+   ========================================================================= */
+.scene-container {
+  position: relative;
+  height: 400vh;
+}
+.scene-viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+.scene-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+
+/* Decorative geometric shapes used in hero */
+.geo-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  pointer-events: none;
+}
+
+/* =========================================================================
+   BEFORE/AFTER SLIDER
+   ========================================================================= */
+.ba-wrap {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  user-select: none;
+  touch-action: none;
+}
+.ba-pane {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--bg);
+  cursor: ew-resize;
+}
+.ba-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+}
+
+/* =========================================================================
+   PORTFOLIO MOCK BROWSER (fallback ketika video belum tersedia)
+   ========================================================================= */
+.mock-window {
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+.mock-window-bar {
+  height: 28px;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+}
+.mock-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+/* =========================================================================
+   FAQ ACCORDION
+   ========================================================================= */
+.faq-item {
+  border-top: 1px solid var(--line);
+}
+.faq-item:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  cursor: pointer;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  width: 100%;
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease, padding 0.45s ease, opacity 0.45s ease;
+  opacity: 0;
+  color: var(--ink-soft);
+}
+.faq-item.open .faq-a {
+  max-height: 320px;
+  padding-bottom: 1.4rem;
+  opacity: 1;
+}
+.faq-icon {
+  transition: transform 0.35s ease;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+}
+
+/* Hide scrollbar inside horizontal scrollers (optional) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* =========================================================================
+   RESPONSIVE TYPOGRAPHY
+   ========================================================================= */
+.h-display {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+}
+
+@media (max-width: 767px) {
+  .h-display {
+    line-height: 0.95;
+  }
+}
