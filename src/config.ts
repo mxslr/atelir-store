@@ -16,8 +16,8 @@ export const STUDIO_TAGLINE = 'Studio kode bukan template'
 // =====================================================
 export const BASE_PRICES: Record<string, Record<string, number>> = {
   web: {
-    tugas_kuliah: 300000,
-    portfolio: 350000,
+    tugas_kuliah: 350000,
+    portfolio: 250000,
     company_profile: 1200000,
     redesign: 1500000,
     toko_online: 2800000,

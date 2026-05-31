@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "og": "node scripts/generate-og.mjs"
+    "og": "node scripts/generate-og.mjs",
+    "logo": "node scripts/generate-logo.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
