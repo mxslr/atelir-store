@@ -32,15 +32,15 @@ const svg = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http:/
     <text x="170" y="33" font-family="Arial, Helvetica, sans-serif" font-size="15" letter-spacing="4" fill="#6b6357">STORE</text>
   </g>
 
-  <!-- Headline -->
-  <text x="80" y="312" font-family="Georgia, 'Times New Roman', serif" font-size="66" font-weight="700" fill="#14110d">Website <tspan font-style="italic" fill="#c0431c">premium</tspan>,</text>
-  <text x="80" y="394" font-family="Georgia, 'Times New Roman', serif" font-size="66" font-weight="700" fill="#14110d">dirancang, bukan ditempel.</text>
+  <!-- Headline (selaras dengan H1 hero) -->
+  <text x="80" y="300" font-family="Georgia, 'Times New Roman', serif" font-size="66" font-weight="700" fill="#14110d">Semua orang berhak punya</text>
+  <text x="80" y="384" font-family="Georgia, 'Times New Roman', serif" font-size="66" font-weight="700" fill="#14110d">website <tspan font-style="italic" fill="#c0431c">premium</tspan>.</text>
 
   <!-- Sub -->
-  <text x="82" y="456" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#3a342b">Jasa pembuatan website profesional dengan harga jujur.</text>
+  <text x="82" y="448" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#3a342b">Jasa pembuatan website profesional dengan harga jujur.</text>
 
   <!-- Baris bawah -->
-  <text x="80" y="556" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="2" fill="#6b6357">WEBSITE &#183; CHATBOT &#183; AI MODELLING &#8212; KONSULTASI GRATIS VIA WHATSAPP</text>
+  <text x="80" y="556" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="2" fill="#6b6357">WEBSITE &#183; CHATBOT &#183; AI MODELLING &#183; KONSULTASI GRATIS VIA WHATSAPP</text>
 </svg>`
 
 await sharp(Buffer.from(svg)).png().toFile(out)
