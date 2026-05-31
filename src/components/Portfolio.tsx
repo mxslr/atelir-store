@@ -218,7 +218,7 @@ export default function Portfolio() {
                 dari elemen inline <video>/<img>. Tanpa ini ada celah ~4px di
                 bawah video. maxHeight dihitung dari sisa ruang modal supaya
                 konten tidak perlu di-scroll. */}
-            <div style={{ position: 'relative', background: '#000', aspectRatio: '16/9', maxHeight: 'calc(100vh - 320px)', lineHeight: 0, fontSize: 0 }}>
+            <div style={{ position: 'relative', background: '#000', aspectRatio: '16/9', maxHeight: 'calc(100vh - 320px)', flexShrink: 0, lineHeight: 0, fontSize: 0 }}>
               {activeItem.video ? (
                 <video
                   autoPlay
