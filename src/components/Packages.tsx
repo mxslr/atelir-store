@@ -140,7 +140,10 @@ function PackageCard({ p, index }: { p: typeof PACKAGES[number]; index: number }
       : `Halo ${STUDIO_NAME}, saya tertarik dengan paket *${p.name}* (${p.priceLabel}). Mohon info lebih lanjut.`
   )
 
-  const surfaceMuted = popular ? 'rgba(244,239,230,0.7)' : 'var(--ink-soft)'
+  // Pada kartu populer, teks/garis "muted" diturunkan dari var(--bg) (warna
+  // teks kartu) lewat color-mix supaya ikut membalik mengikuti tema. Nilai
+  // hardcoded cream sebelumnya hilang di dark mode karena bg kartu jadi cream.
+  const surfaceMuted = popular ? 'color-mix(in oklab, var(--bg) 70%, transparent)' : 'var(--ink-soft)'
 
   // Cursor parallax lokal untuk glow pada hover
   const onMove = (e: React.MouseEvent<HTMLElement>) => {
@@ -207,9 +210,9 @@ function PackageCard({ p, index }: { p: typeof PACKAGES[number]; index: number }
             marginTop: '1rem',
             padding: '0.6rem 0.85rem',
             borderRadius: 12,
-            background: popular ? 'rgba(244,239,230,0.08)' : 'var(--bg-soft)',
+            background: popular ? 'color-mix(in oklab, var(--bg) 8%, transparent)' : 'var(--bg-soft)',
             border: '1px dashed',
-            borderColor: popular ? 'rgba(244,239,230,0.18)' : 'var(--line)',
+            borderColor: popular ? 'color-mix(in oklab, var(--bg) 18%, transparent)' : 'var(--line)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -320,7 +323,7 @@ function PackageCard({ p, index }: { p: typeof PACKAGES[number]; index: number }
           style={{
             background: 'transparent',
             border: '1px solid',
-            borderColor: popular ? 'rgba(244,239,230,0.25)' : 'var(--line)',
+            borderColor: popular ? 'color-mix(in oklab, var(--bg) 25%, transparent)' : 'var(--line)',
             color: 'inherit',
             padding: '0.7rem 1rem',
             borderRadius: 999,
@@ -334,7 +337,7 @@ function PackageCard({ p, index }: { p: typeof PACKAGES[number]; index: number }
             transition: 'background 0.25s ease'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = popular ? 'rgba(244,239,230,0.08)' : 'var(--bg-soft)'
+            e.currentTarget.style.background = popular ? 'color-mix(in oklab, var(--bg) 8%, transparent)' : 'var(--bg-soft)'
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = 'transparent'
