@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { clamp, segment, useIsMobile, useMouseParallax, useScrollProgress } from '../hooks'
-import { IconArrowRight, IconChevronDown } from '../icons'
+import { IconArrowRight } from '../icons'
 
 /* =========================================================================
    HERO. Sticky viewport scroll scene dengan beberapa layer.
@@ -197,37 +197,6 @@ export default function Hero() {
           }}
         >
           <StatsScene />
-        </div>
-
-        {/* ============================================================
-            LAYER 6. Indikator gulir di scene 1.
-            ============================================================ */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            bottom: 'max(28px, env(safe-area-inset-bottom))',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 6,
-            color: 'var(--ink-soft)',
-            fontSize: '0.7rem',
-            textTransform: 'uppercase',
-            opacity: sceneOneOpacity,
-            animation: 'rise 1s ease both',
-            animationDelay: '0.9s',
-            zIndex: 8
-          }}
-        >
-          {/* letter-spacing hanya pada teks (bukan container) supaya chevron di
-              bawah tidak ikut tergeser oleh trailing space. text-indent 0.3em
-              mengimbangi trailing letter-spacing agar kata benar-benar center. */}
-          <span style={{ letterSpacing: '0.3em', textIndent: '0.3em' }}>Scroll</span>
-          <span className="bob" style={{ display: 'inline-flex' }}>
-            <IconChevronDown size={20} />
-          </span>
         </div>
       </div>
     </div>
