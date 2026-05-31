@@ -36,7 +36,7 @@ export default function Packages() {
             </h2>
           </div>
           <p style={{ color: 'var(--ink-soft)', maxWidth: 360, fontSize: '0.98rem', lineHeight: 1.55 }}>
-            Empat jalur singkat untuk kamu yang sudah tahu skala kebutuhannya. Klik kartu untuk membuka fitur lengkap.
+            Empat jalur singkat untuk kamu yang sudah tau skala kebutuhannya. Klik kartu untuk membuka fitur lengkap.
           </p>
         </div>
       </div>

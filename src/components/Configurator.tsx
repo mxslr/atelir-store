@@ -148,7 +148,7 @@ export default function Configurator({ state, setState }: Props) {
         <h2 className="h-display" style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', marginTop: '0.75rem', maxWidth: 820 }}>
           Konfigurator real-time.
           <br />
-          <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Tahu harga</span> sebelum chat.
+          <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Tau harga</span> sebelum chat.
         </h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: 600, marginTop: '1rem', fontSize: '1rem', lineHeight: 1.55 }}>
           Geser, pilih, dan tambah. Perkiraan harga dan waktu kerja kami ikut berubah otomatis. Tidak ada kejutan ketika kamu menekan tombol WhatsApp.
