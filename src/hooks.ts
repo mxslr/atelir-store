@@ -122,8 +122,8 @@ export function useReveal<T extends HTMLElement>(threshold = 0.15) {
 }
 
 /* =========================================================================
-   useTheme. Light by default, kecuali prefers-color-scheme dark. Boleh
-   override manual lewat toggle. Menyimpan ke localStorage bila tersedia.
+   useTheme. Selalu light saat kunjungan pertama (mengabaikan preferensi OS),
+   tapi tetap menghormati pilihan manual user yang tersimpan di localStorage.
    ========================================================================= */
 export function useTheme() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -132,7 +132,7 @@ export function useTheme() {
       const saved = localStorage.getItem('theme') as 'light' | 'dark' | null
       if (saved) return saved
     } catch {}
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    return 'light'
   })
 
   useEffect(() => {
