@@ -96,7 +96,7 @@ export default function Navbar({ theme, onToggleTheme }: Props) {
               textTransform: 'uppercase'
             }}
           >
-            studio
+            store
           </span>
         </button>
 

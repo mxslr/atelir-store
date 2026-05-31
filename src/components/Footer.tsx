@@ -1,5 +1,5 @@
 import { STUDIO_NAME, buildWaUrl } from '../config'
-import { IconInstagram, IconLogo, IconMail, IconWhatsApp } from '../icons'
+import { IconLogo, IconWhatsApp } from '../icons'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -77,30 +77,6 @@ export default function Footer() {
                   WhatsApp
                 </a>
               </li>
-              <li>
-                {/* GANTI link Instagram */}
-                <a
-                  href="https://instagram.com/atelir.studio"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="link-u"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.55rem' }}
-                >
-                  <IconInstagram size={16} />
-                  Instagram
-                </a>
-              </li>
-              <li>
-                {/* GANTI email studio */}
-                <a
-                  href="mailto:halo@atelir.studio"
-                  className="link-u"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.55rem' }}
-                >
-                  <IconMail size={16} />
-                  halo@atelir.studio
-                </a>
-              </li>
             </ul>
           </div>
         </div>
@@ -117,7 +93,7 @@ export default function Footer() {
           }}
         >
           <p style={{ fontSize: '0.82rem', color: 'var(--ink-mute)' }}>
-            &copy; {year} {STUDIO_NAME} Studio. Hak cipta dilindungi.
+            &copy; {year} {STUDIO_NAME} Store. Hak cipta dilindungi.
           </p>
           <p className="font-display" style={{ fontSize: '0.92rem', fontStyle: 'italic', color: 'var(--ink-soft)' }}>
             Dibuat dengan kode, bukan template.
