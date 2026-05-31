@@ -121,7 +121,7 @@ export default function Portfolio() {
                      dipakai sebagai thumbnail. Selain itu fallback ke mock. */
                   <img
                     src={p.image}
-                    alt={p.title}
+                    alt={`${p.title} - ${p.type} buatan Atelir, jasa pembuatan website tanpa template`}
                     loading="lazy"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />

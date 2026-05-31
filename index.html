@@ -6,6 +6,8 @@
     <meta name="theme-color" content="#F4EFE6" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content="Atelir merupakan jasa pembuatan website profesional murah dengan tampilan premium dengan developer profesional. Konsultasi gratis via WhatsApp." />
+    <meta name="keywords" content="jasa website murah premium, jasa pembuatan website, website tanpa template, jasa chatbot, jasa AI, website tugas kuliah Laravel, jasa company profile murah" />
+    <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.atelir.store/" />
 
     <!-- Open Graph (WhatsApp, Facebook, LinkedIn). -->
@@ -33,6 +35,36 @@
       rel="stylesheet"
     />
     <title>Jasa Website Profesional Murah Premium | Atelir</title>
+
+    <!--
+      Structured data (JSON-LD) tipe ProfessionalService.
+      Membantu Google memahami bahwa situs ini penyedia jasa.
+      GANTI bagian bertanda PEMILIK di bawah:
+      - telephone: nomor WhatsApp format internasional (sudah diisi, sesuaikan bila berubah).
+      - logo / image: taruh file logo di folder public lalu sesuaikan URL-nya.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Atelir",
+        "description": "Jasa pembuatan website murah dengan tampilan premium, dibuat dari nol tanpa template. Melayani website, chatbot, dan AI.",
+        "url": "https://www.atelir.store/",
+        "image": "https://www.atelir.store/og.png",
+        "logo": "https://www.atelir.store/og.png",
+        "telephone": "+62812818813",
+        "priceRange": "$$",
+        "areaServed": {
+          "@type": "Country",
+          "name": "Indonesia"
+        },
+        "serviceType": [
+          "Jasa pembuatan website",
+          "Jasa chatbot",
+          "Jasa AI"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
