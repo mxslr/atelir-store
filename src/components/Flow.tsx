@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { IconArrowRight, IconCheck, IconWhatsApp } from '../icons'
-import { clamp, useReveal } from '../hooks'
+import { useIsMobile, useReveal } from '../hooks'
 import { STUDIO_NAME, buildWaUrl } from '../config'
 
 /* =========================================================================
@@ -67,6 +67,7 @@ export default function Flow() {
   const { ref, shown } = useReveal<HTMLDivElement>(0.1)
   const trackRef = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
+  const isMobile = useIsMobile()
 
   // Progress garis penghubung mengikuti scroll dalam track.
   // Formula yang dipakai: p=0 ketika track top menyentuh 75 % tinggi
@@ -83,9 +84,22 @@ export default function Flow() {
       raf = requestAnimationFrame(() => {
         const rect = el.getBoundingClientRect()
         const vh = window.innerHeight
-        const startTop = vh * 0.75
-        const endTop = vh * 0.25
-        const p = (startTop - rect.top) / (startTop - endTop)
+        let p: number
+        if (isMobile) {
+          // Track vertikal dan tinggi. Isi rail mengikuti seberapa jauh track
+          // melewati garis pemicu (~62% tinggi layar), sehingga tiap titik
+          // menyala tepat saat kartunya sampai di tengah layar dan mundur lagi
+          // saat user scroll ke atas. Ini yang membuat animasinya terlihat di
+          // mobile (versi lama terisi penuh hanya dalam setengah layar).
+          const trigger = vh * 0.62
+          p = (trigger - rect.top) / el.offsetHeight
+        } else {
+          // Desktop: track horizontal pendek, terisi penuh dalam ~setengah
+          // layar scroll begitu section masuk viewport.
+          const startTop = vh * 0.75
+          const endTop = vh * 0.25
+          p = (startTop - rect.top) / (startTop - endTop)
+        }
         setProgress(Math.max(0, Math.min(1, p)))
       })
     }
@@ -97,7 +111,7 @@ export default function Flow() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [])
+  }, [isMobile])
 
   const waUrl = buildWaUrl(`Halo ${STUDIO_NAME}, saya tertarik memulai proyek. Tolong jelaskan alur kerjanya.`)
 
@@ -268,26 +282,14 @@ export default function Flow() {
 
 function StepCard({ step, index, progress }: { step: Step; index: number; progress: number }) {
   const total = STEPS.length
-  // Step dianggap "reached" ketika progress global melewati ambang per-step
+  // Kartu sendiri statis. Yang bergerak mengikuti scroll hanya warna oren pada
+  // nomor (dot) dan isi garis penghubung — keduanya otomatis mundur saat
+  // user scroll ke atas karena terikat langsung ke progress.
   const threshold = (index + 0.5) / total
   const reached = progress >= threshold
 
-  // Reveal tiap kartu di-scrub langsung oleh progress scroll (bukan animasi
-  // sekali jalan), sehingga saat user scroll ke atas kartu ikut mundur
-  // (rewind) ke keadaan awal, lalu muncul lagi ketika scroll turun.
-  const start = index / total
-  const end = (index + 0.85) / total
-  const reveal = clamp((progress - start) / (end - start), 0, 1)
-
   return (
-    <div
-      className="flow-card"
-      style={{
-        opacity: reveal,
-        transform: `translateY(${(1 - reveal) * 22}px)`,
-        transition: 'opacity 0.25s linear, transform 0.25s linear'
-      }}
-    >
+    <div className="flow-card">
       <span className={`flow-dot ${reached ? 'reached' : ''}`}>{step.n}</span>
 
       <div
