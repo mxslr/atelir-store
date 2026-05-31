@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { IconArrowRight, IconCheck, IconWhatsApp } from '../icons'
-import { useReveal } from '../hooks'
+import { clamp, useReveal } from '../hooks'
 import { STUDIO_NAME, buildWaUrl } from '../config'
 
 /* =========================================================================
@@ -124,7 +124,7 @@ export default function Flow() {
             </h2>
           </div>
           <p style={{ color: 'var(--ink-soft)', maxWidth: 360, fontSize: '0.98rem', lineHeight: 1.55 }}>
-            Enam langkah transparan. Kamu tahu posisi proyek setiap saat, tanpa harus menebak-nebak.
+            Enam langkah transparan. Kamu tau posisi proyek setiap saat, tanpa harus menebak-nebak.
           </p>
         </div>
 
@@ -267,16 +267,25 @@ export default function Flow() {
 }
 
 function StepCard({ step, index, progress }: { step: Step; index: number; progress: number }) {
+  const total = STEPS.length
   // Step dianggap "reached" ketika progress global melewati ambang per-step
-  const threshold = (index + 0.5) / 6
+  const threshold = (index + 0.5) / total
   const reached = progress >= threshold
+
+  // Reveal tiap kartu di-scrub langsung oleh progress scroll (bukan animasi
+  // sekali jalan), sehingga saat user scroll ke atas kartu ikut mundur
+  // (rewind) ke keadaan awal, lalu muncul lagi ketika scroll turun.
+  const start = index / total
+  const end = (index + 0.85) / total
+  const reveal = clamp((progress - start) / (end - start), 0, 1)
 
   return (
     <div
       className="flow-card"
       style={{
-        animation: 'rise 0.7s ease both',
-        animationDelay: `${index * 70}ms`
+        opacity: reveal,
+        transform: `translateY(${(1 - reveal) * 22}px)`,
+        transition: 'opacity 0.25s linear, transform 0.25s linear'
       }}
     >
       <span className={`flow-dot ${reached ? 'reached' : ''}`}>{step.n}</span>
