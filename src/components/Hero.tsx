@@ -222,7 +222,10 @@ export default function Hero() {
             zIndex: 8
           }}
         >
-          <span>Gulir</span>
+          {/* text-indent mengimbangi trailing letter-spacing 0.3em supaya
+              glyph benar-benar center terhadap chevron di bawahnya (terlihat
+              meleset ke kiri di mobile tanpa ini). */}
+          <span style={{ textIndent: '0.3em' }}>Scroll</span>
           <span className="bob" style={{ display: 'inline-flex' }}>
             <IconChevronDown size={20} />
           </span>
@@ -331,8 +334,8 @@ function Corners() {
 
 function StatsScene() {
   const stats = [
-    { v: '120+', label: 'Proyek dirilis' },
-    { v: '10 hari', label: 'Rata-rata pengerjaan' },
+    { v: '20+', label: 'Proyek dirilis' },
+    { v: '5 hari', label: 'Rata-rata pengerjaan' },
     { v: '0', label: 'Template dipakai' },
     { v: '100 %', label: 'Mobile friendly' }
   ]
